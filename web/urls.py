@@ -3,6 +3,8 @@ from .views import *
 app_name = 'web'
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('category/<int:categoria_id>', FiltroProductos, name='filtrado')
+    path('', index_view.as_view(), name='index'),
+    path('category/<int:pk>', Filtro_Productos.as_view(), name='filtrado'),
+    path('productos/', Search_Producto, name='filter'),
+    path('producto/detail/<int:pk>', Product_Detail.as_view(), name='details')
 ]
