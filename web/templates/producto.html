@@ -63,7 +63,7 @@
                 <p class="prod-excerpt">{{productos.descripcion}}
                     <a id="prod-showdesc" class="prod-excerpt-more" href="#">read more</a></p>
                 <div class="prod-add">
-                    <form action="#" method="post">
+                    <form action="{% url "web:add_carrito" productos.id %}" method="post">
                         {% csrf_token %}
                         <div class="variations">
                             <div class="variations-row">

@@ -1,7 +1,8 @@
 from typing import Any
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import *
 from django.views.generic import ListView, DetailView
+from .carrito import Cart
 
 """De esta forma seria con vista Generica"""
 class index_view(ListView):
@@ -47,10 +48,45 @@ class Product_Detail(DetailView):
     context_object_name = 'productos'
 
     def get_object(self, queryset=None):
-        # Obtiene el objeto Producto o retorna un error 404 si no existe
+       # Obtiene el objeto Producto o retorna un error 404 si no existe 
         return get_object_or_404(Producto, pk=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         context['categorias'] = Categoria.objects.all()
         return context
+
+
+#Vistas para el carrito de compras
+
+def Carrito_View(request):
+    return render(request,'carrito.html')
+
+
+def Add_Carrito(request,producto_id):
+    if request.method == 'POST':
+        cantidad = int(request.POST['cantidad'])
+    else:
+        cantidad = 1
+
+    objProducto = Producto.objects.get(pk=producto_id)
+    carritoProducto = Cart(request)
+    carritoProducto.add(objProducto,cantidad)
+    if request.method == 'GET': #GOOOOOOOOOOOOOOOOOOOOOOOOOOD
+        return redirect('/') #GOOOOOOOOOOOOOOOOOOOOOOOOOOD
+
+
+    return render(request,'carrito.html')
+
+def Del_Carrito(request,producto_id):
+    objProducto = Producto.objects.get(pk=producto_id)
+    carritoProducto = Cart(request)
+    carritoProducto.delete(objProducto)
+
+    return render(request,'carrito.html')
+
+
+def Clear_Carrito(request):
+    carrito = Cart(request)
+    carrito.clear()
+    return render(request, 'carrito.html')
