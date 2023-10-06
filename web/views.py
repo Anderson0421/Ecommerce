@@ -3,6 +3,9 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .models import *
 from django.views.generic import ListView, DetailView
 from .carrito import Cart
+from django.contrib.auth.models import User
+from django.contrib.auth import login,logout,authenticate
+from .forms import ClienteForm
 
 """De esta forma seria con vista Generica"""
 class index_view(ListView):
@@ -90,3 +93,25 @@ def Clear_Carrito(request):
     carrito = Cart(request)
     carrito.clear()
     return render(request, 'carrito.html')
+
+
+def Crear_Usuario(request):
+    if request.method == 'POST':
+        dataUsuario = request.POST['nuevoUsuario']
+        dataPassword = request.POST['nuevoPassword']
+        nuevoUsuario = User.objects.create_user(username=dataUsuario, password=dataUsuario)
+        if nuevoUsuario is not None:
+            login(request, nuevoUsuario) #Hacer un login dentro de la aplicacion
+            return redirect('/Cuenta')
+        else:
+            return redirect(request, 'login.html', {})
+
+    return render(request, 'login.html',{})
+
+
+def CuentaUsuario(request):
+    formCliente = ClienteForm()
+    context = {
+        'form':formCliente
+    }
+    return render(request, 'cuenta.html', context)

@@ -11,4 +11,6 @@ urlpatterns = [
     path('carrito/add/<int:producto_id>',Add_Carrito,name='add_carrito'),
     path('carrito/delete/<int:producto_id>',Del_Carrito,name='del_carrito'),
     path('carrito/clear/',Clear_Carrito,name='clear_carrito'),
+    path('Registro/',Crear_Usuario,name='crear'),
+    path('Cuenta/', CuentaUsuario, name='cuenta'),
 ]

@@ -4,14 +4,15 @@
     <ul class="b-crumbs">
         <li><a href="index.html">Home</a></li>
         <li>Registration & Login</li>
-    </ul>                                                <article class="page-cont">
+    </ul>   
+    <article class="page-cont">
     <div class="page-styling">
 
 
         <div class="auth-wrap">
             <div class="auth-col">
                 <h2>Login</h2>
-                <form method="post" class="login" action="{% url 'web:loginUsuario' %}">
+                <form method="post" class="login" action="#">
                     {% csrf_token %}
                     <p>
                         <label for="username">E-mail <span class="required">*</span></label>
@@ -36,7 +37,7 @@
             </div>
             <div class="auth-col">
                 <h2>Registro</h2>
-                <form method="post" class="register" action="{% url 'web:crearUsuario' %}">
+                <form method="post" class="register" action="{% url 'web:crear' %}">
                     {% csrf_token %}
                     <p>
                         <label for="reg_email">Email <span class="required">*</span></label>
