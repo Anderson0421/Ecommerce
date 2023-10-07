@@ -2,7 +2,7 @@
 {% block content %}
     <ul class="b-crumbs">
         <li><a href="/">Home</a></li>
-        <li><a href="/">Catalogos</a></li>
+        <li><a href="/">Catalog</a></li>
         <li>Producto</li>
     </ul>
     <article>
@@ -12,16 +12,21 @@
                 <ul class="slides">
                     <li>
                         <a data-fancybox-group="prod" class="fancy-img" href="#">
-                            {% if productos.imagen %}
-                                <img src="{{productos.imagen.url}}" alt="">
+                            {% if producto.imagen %}
+                                <img src="{{producto.imagen.url}}" alt="">
                             {% else %}
                                 <img src="https://via.placeholder.com/250" alt="">
                             {% endif %}
+                            
                         </a>
                     </li>
                     <li>
                         <a data-fancybox-group="prod" class="fancy-img" href="#">
-                            <img src="https://via.placeholder.com/250" alt="">
+                            {% if producto.imagen %}
+                                <img src="{{producto.imagen.url}}" alt="">
+                            {% else %}
+                                <img src="https://via.placeholder.com/250" alt="">
+                            {% endif %}
                         </a>
                     </li>
                 </ul>
@@ -32,14 +37,18 @@
             <div class="flexslider prod-thumbs" id="prod-thumbs">
                 <ul class="slides">
                     <li>
-                        {% if productos.imagen %}
-                            <img src="{{productos.imagen.url}}" alt="">
-                        {% else %}
-                            <img src="https://via.placeholder.com/250" alt="">
-                        {% endif %}
+                        {% if producto.imagen %}
+                                <img src="{{producto.imagen.url}}" alt="">
+                            {% else %}
+                                <img src="https://via.placeholder.com/250" alt="">
+                            {% endif %}
                     </li>
                     <li>
-                        <img src="https://via.placeholder.com/250" alt="">
+                        {% if producto.imagen %}
+                                <img src="{{producto.imagen.url}}" alt="">
+                            {% else %}
+                                <img src="https://via.placeholder.com/250" alt="">
+                            {% endif %}
                     </li>
                 </ul>
             </div>
@@ -57,13 +66,13 @@
                 <p class="prod-rating-count">7</p>
             </div>
             <p class="prod-categs"><a href="#">{{producto.categoria}}</a></p>
-            <h1> {{productos.nombre}} </h1>
+            <h1>{{producto.nombre}}</h1>
             <div class="variations_form cart">
-                <p class="prod-price">S/{{productos.precio}}</p>
-                <p class="prod-excerpt">{{productos.descripcion}}
+                <p class="prod-price">${{producto.precio}}</p>
+                <p class="prod-excerpt">{{producto.descripcion}}... 
                     <a id="prod-showdesc" class="prod-excerpt-more" href="#">read more</a></p>
                 <div class="prod-add">
-                    <form action="{% url "web:add_carrito" productos.id %}" method="post">
+                    <form action="{% url 'web:agregarCarrito' producto.id %}" method="post">
                         {% csrf_token %}
                         <div class="variations">
                             <div class="variations-row">

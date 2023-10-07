@@ -8,7 +8,7 @@ class ClienteForm(forms.Form):
         ('M','Masculino'),
         ('F','Femenino')
     )
-    dni = forms.CharField(label='DNI',max_length=8)
+    dni = forms.CharField(label='DNI',max_length=8,required=False)
     nombre = forms.CharField(label='Nombres',max_length=200,required=True)
     apellidos = forms.CharField(label='Apellidos',max_length=200,required=True)
     email = forms.EmailField(label='Email',required=True)
