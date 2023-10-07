@@ -46,7 +46,6 @@ class Cart:
     
     def save(self):
         """ guarda cambios en el carrito de compras"""
-        
         montoTotal = 0
         
         for key,value in self.cart.items():

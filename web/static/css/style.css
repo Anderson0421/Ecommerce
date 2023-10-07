@@ -989,7 +989,7 @@ body i.icon {
 	margin: 0 0 25px;
 	padding: 15px 0;
 	background-color: #ffffff;
-	box-shadow: 0 3px 10px 0 rgba(0,0,0,0.03);
+	box-shadow: 0 3px 10px 0 rgba(117, 117, 117, 0.685);
 	position: relative;
 }
 body .header-sticky .site-header.header_sticky {

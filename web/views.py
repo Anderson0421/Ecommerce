@@ -19,7 +19,7 @@ def index(request):
     }
     return render(request,'index.html',context)
 
-def productosPorCategoria(request,categoria_id):
+def Producto_Categoria(request,categoria_id):
     """ vista para filtrar productos por categoria """
     objCategoria = Categoria.objects.get(pk=categoria_id)
     listaProductos = objCategoria.producto_set.all()
@@ -33,7 +33,7 @@ def productosPorCategoria(request,categoria_id):
     
     return render(request,'index.html',context)
 
-def productosPorNombre(request):
+def Productos_Nombre(request):
     """ vista para filtrado de productos por nombre """
     nombre = request.POST['nombre']
     
@@ -47,7 +47,7 @@ def productosPorNombre(request):
     
     return render(request,'index.html',context)
 
-def productoDetalle(request,producto_id):
+def Producto_Detalle(request,producto_id):
     """ vista para el detalle de producto"""
     
     #objProducto = Producto.objects.get(pk=producto_id)
@@ -65,7 +65,7 @@ from .carrito import Cart
 def carrito(request):
     return render(request,'carrito.html')
 
-def agregarCarrito(request,producto_id):
+def Carrito_add(request,producto_id):
     if request.method == 'POST':
         cantidad = int(request.POST['cantidad'])
     else:
@@ -82,14 +82,14 @@ def agregarCarrito(request,producto_id):
     
     return render(request,'carrito.html')
 
-def eliminarProductoCarrito(request,producto_id):
+def Carrito_del(request,producto_id):
     objProducto = Producto.objects.get(pk=producto_id)
     carritoProducto = Cart(request)
     carritoProducto.delete(objProducto)
     
     return render(request,'carrito.html')
 
-def limpiarCarrito(request):
+def Carrito_clear(request):
     carritoProducto = Cart(request)
     carritoProducto.clear()
     

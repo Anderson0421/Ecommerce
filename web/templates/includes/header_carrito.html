@@ -1,10 +1,10 @@
 <li class="h-cart">
-    <a class="cart-contents" href="cart.html">
+    <a class="cart-contents" href="{% url 'web:carrito' %}">
         <p class="h-cart-icon">
             <i class="ion-android-cart"></i>
             <span>{{request.session.cart.items|length}}</span>
         </p>
-        <p class="h-cart-total">${{request.session.cartMontoTotal}}</p>
+        <p class="h-cart-total">S/{{request.session.cartMontoTotal}}</p>
     </a>
     <div class="widget_shopping_cart">
         <div class="widget_shopping_cart_content">
@@ -20,10 +20,10 @@
                 </li>
                 {% endfor %}
             </ul>
-            <p class="total"><b>Total:</b> ${{request.session.cartMontoTotal}}</p>
+            <p class="total"><b>Total:</b> S/{{request.session.cartMontoTotal}}</p>
             <p class="buttons">
                 <a href="{% url 'web:carrito' %}" class="button">Ver Carrito</a>
-                <a href="#" class="button">Pedido</a>
+                <a href="{% url "web:registrarPedido" %}" class="button">Pedido</a>
             </p>
         </div>
     </div>

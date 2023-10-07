@@ -1,12 +1,10 @@
 {% load static %}
-    <!--header-->
     <div class="site-header">
 
         <p class="h-logo">
-            <a href="/"><img src="{% static 'img/logo.png' %}" alt="EdShop"></a>
-        </p><!--
-    No Space
-    --><div class="h-shop">
+            <a href="/"><img src="{% static 'img/logo.png' %}"></a>
+        </p>
+        <div class="h-shop">
 
         <form method="post" action="{% url 'web:productosPorNombre' %}" class="h-search" id="h-search">
             {% csrf_token %}
@@ -18,17 +16,20 @@
             <li class="h-search-btn" id="h-search-btn"><i class="ion-search"></i></li>
             
             <li class="h-shop-icon h-profile">
-                <a href="auth.html" title="My Account">
+                <a href="#" title="My Account">
                     <i class="ion-android-person"></i>
                 </a>
                 <ul class="h-profile-links">
-                    <li><a href="/login">Login / Registro</a></li>
+                    {% if request.user.is_authenticated %}
+                        <li class=><a href="{% url "web:cuenta" %}" disabled>Bienvenido {{request.user.first_name}} </a></li>
+                        <li><a href="{% url "web:cuenta" %}">Ver Cuenta</a></li>
+                        {% else %}
+                        <li><a href="/login">Login / Registro</a></li>
+                    {% endif %}
+
                     <li><a href="/logout">Logout</a></li>
                 </ul>
             </li>
-
             {% include 'includes/header_carrito.html' %}
-
-
         </ul>
     </div></div>
