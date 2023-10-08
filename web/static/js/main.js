@@ -376,6 +376,7 @@ jQuery(document).ready(function ($) {
 
 
 
+
 	// Post Add Comment Form
 	$('.post-comments').on('click', '#post-comments-add', function () {
 		$('#post-addcomment-form').slideDown();

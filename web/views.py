@@ -1,7 +1,9 @@
+from typing import Any
+from django import http
 from django.shortcuts import render,get_object_or_404,redirect
 
 from django.urls import reverse
-
+from django.contrib.auth.views import LoginView, LogoutView
 from .models import Categoria,Producto,Cliente,Pedido,PedidoDetalle
 # from paypal.standard.forms import PayPalPaymentsForm
 
@@ -113,36 +115,23 @@ def crearUsuario(request):
         nuevoUsuario = User.objects.create_user(username=dataUsuario,password=dataPassword)
         if nuevoUsuario is not None:
             login(request,nuevoUsuario)
-            return redirect('/cuenta')
+            return redirect('/Cuenta')
     
     
     return render(request,'login.html')
 
-def loginUsuario(request):
-    paginaDestino = request.GET.get('next',None)
-    context = {
-        'destino':paginaDestino
-    }
+
+class ViewLogin(LoginView):
+    template_name = 'login.html'
     
-    if request.method == 'POST':
-        dataUsuario = request.POST['usuario']
-        dataPassword = request.POST['password']
-        
-        usuarioAuth = authenticate(request,username=dataUsuario,password=dataPassword)
-        if usuarioAuth is not None:
-            login(request,usuarioAuth)
-            return redirect('/cuenta')
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('/')
         else:
-            context = {
-                'mensajeError':'Datos incorrectos'
-            }
-    
-    return render(request,'login.html',context)
-
-def logoutUsuario(request):
-    logout(request)
-    return render(request,'login.html')
-
+            pass
+        return super().dispatch(request, *args, **kwargs)
+        
+        
 def cuentaUsuario(request):
     
     try:

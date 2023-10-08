@@ -1,36 +1,40 @@
 {% extends 'layout.html' %}
+{% load widget_tweaks %}
 {% block content %}
     <h1 class="maincont-ttl">Registration / Login</h1>
     <ul class="b-crumbs">
         <li><a href="index.html">Home</a></li>
         <li>Registration & Login</li>
-    </ul>                                                <article class="page-cont">
+    </ul> 
+    <article class="page-cont">
     <div class="page-styling">
-
 
         <div class="auth-wrap">
             <div class="auth-col">
                 <h2>Login</h2>
-                <form method="post" class="login" action="{% url 'web:loginUsuario' %}">
+                <form action="." method="post">
+                    <input type="hidden" name="next" value="{{ next }}">
                     {% csrf_token %}
-                    <input type="hidden" name="destino" value="{{destino}}"/>
-                    <p>
-                        <label for="username">E-mail <span class="required">*</span></label>
-                        <input type="text" id="username" name="usuario">
-                    </p>
-                    <p>
-                        <label for="password">Password <span class="required">*</span></label>
-                        <input type="password" id="password" name="password">
-                    </p>
-                    <p class="auth-submit">
-                        <input type="submit" value="Login">
-                        <input type="checkbox" id="rememberme" value="forever">
-                        <label for="rememberme">Remember me</label>
-                    </p>
-                    <p>
-                        <label for="alert-danger">{{mensajeError}}</label>
-                    </p>
+
+                    <div class="input-group mb-3">
+                        {{ form.username|add_class:'form-control'|attr:'autocomplete:off'|attr:'placeholder:Ingrese su email' }}
+
+                    </div><br>
+                    <div class="input-group mb-3">
+                        {{ form.password|add_class:'form-control'|attr:'autocomplete:off'|attr:'placeholder:Ingrese su password' }}
+                    </div>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-sign-in-alt mr-1"></i> Iniciar sesión
+                            </button>
+                             
+                        </div>
+                    </div>
                 </form>
+               
             </div>
             <div class="auth-col">
                 <h2>Registro</h2>
@@ -50,9 +54,25 @@
                 </form>
             </div>
         </div>
-
-
     </div>
+    <script type="application/javascript">
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error! :(',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+    </script>
 </article>
 
 {% endblock %}

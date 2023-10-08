@@ -23,11 +23,12 @@
                     {% if request.user.is_authenticated %}
                         <li class=><a href="{% url "web:cuenta" %}" disabled>Bienvenido {{request.user.first_name}} </a></li>
                         <li><a href="{% url "web:cuenta" %}">Ver Cuenta</a></li>
+                        <li><a href="/logout">Logout</a></li>
                         {% else %}
                         <li><a href="/login">Login / Registro</a></li>
                     {% endif %}
 
-                    <li><a href="/logout">Logout</a></li>
+                    
                 </ul>
             </li>
             {% include 'includes/header_carrito.html' %}

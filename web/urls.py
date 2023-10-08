@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-
+from django.contrib.auth import views as auth_views
 app_name = 'web'
 
 urlpatterns = [
@@ -23,11 +23,12 @@ urlpatterns = [
     path('Cliente/Actualizar/',views.actualizarCliente,name='actualizarCliente'),
 
     #logins
-    path('login/',views.loginUsuario,name='loginUsuario'),
-    path('logout/',views.logoutUsuario,name='logoutUsuario'),
+    path('login/',views.ViewLogin.as_view(),name='loginUsuario'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
     #Pedidos / Compras
     path('Pedido/Register/',views.registrarPedido,name='registrarPedido'),
+    
     # path('pruebapaypal',views.view_that_asks_for_money,name='pruebapaypal'),
     # path('compra',views.registrarCompra,name='compra'),
     # path('confirmacion',views.confirmacionPedido,name='confirmacion')
