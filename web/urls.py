@@ -29,7 +29,7 @@ urlpatterns = [
     #Pedidos / Compras
     path('Pedido/Register/',views.registrarPedido,name='registrarPedido'),
     
-    # path('pruebapaypal',views.view_that_asks_for_money,name='pruebapaypal'),
+    path('PaypalTest',views.view_that_asks_for_money,name='pruebapaypal'),
     # path('compra',views.registrarCompra,name='compra'),
     # path('confirmacion',views.confirmacionPedido,name='confirmacion')
 ] 

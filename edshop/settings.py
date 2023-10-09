@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'web',
+    'paypal.standard.ipn',
     'django_admin_tailwind',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -139,3 +140,5 @@ LOGIN_URL = 'login/'
 LOGIN_REDIRECT_URL = '/Cuenta/'
 
 LOGOUT_REDIRECT_URL = '/login'
+
+PAYPAL_TEST = True

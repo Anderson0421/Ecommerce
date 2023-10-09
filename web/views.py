@@ -5,7 +5,7 @@ from django.shortcuts import render,get_object_or_404,redirect
 from django.urls import reverse
 from django.contrib.auth.views import LoginView, LogoutView
 from .models import Categoria,Producto,Cliente,Pedido,PedidoDetalle
-# from paypal.standard.forms import PayPalPaymentsForm
+from paypal.standard.forms import PayPalPaymentsForm
 
 # Create your views here.
 """ VISTAS PARA EL CATALOGO DE PRODUCTOS """
@@ -313,25 +313,23 @@ def registrarPedido(request):
 # def confirmacionPedido(request):
 #     return render(request,'gracias.html')
 
+
 # #prueba de paypal
+def view_that_asks_for_money(request):
 
+    paypal_dict = {
+        "business": "sb-nqjpl27545136@business.example.com",
+        "amount": "100.00",
+        "item_name": "producto de prueba edteam",
+        "invoice": "100-ED100",
+        "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+        "return": request.build_absolute_uri('/'),
+        "cancel_return": request.build_absolute_uri('/logout'),
+        "custom": "premium_plan",  
+    }
 
-# def view_that_asks_for_money(request):
-
-#     # What you want the button to do.
-#     paypal_dict = {
-#         "business": "sb-mvtyu25103667@business.example.com",
-#         "amount": "100.00",
-#         "item_name": "producto de prueba edteam",
-#         "invoice": "100-ED100",
-#         "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
-#         "return": request.build_absolute_uri('/'),
-#         "cancel_return": request.build_absolute_uri('/logout'),
-#         "custom": "premium_plan",  # Custom command to correlate to some function later (optional)
-#     }
-
-#     # Create the instance.
-#     form = PayPalPaymentsForm(initial=paypal_dict)
-#     context = {"form": form}
-#     return render(request, "payment.html", context)
+    # Create the instance.
+    form = PayPalPaymentsForm(initial=paypal_dict)
+    context = {"form": form}
+    return render(request, "payment.html", context)
     
