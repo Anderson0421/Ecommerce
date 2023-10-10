@@ -1,20 +1,16 @@
-from typing import Any
-from django import http
 from django.shortcuts import render,get_object_or_404,redirect
-
 from django.urls import reverse
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 from .models import Categoria,Producto,Cliente,Pedido,PedidoDetalle
 from paypal.standard.forms import PayPalPaymentsForm
 from .models import Pedido
-# Create your views here.
+from django.conf import settings
 """ VISTAS PARA EL CATALOGO DE PRODUCTOS """
 
 def index(request):
     listaProductos = Producto.objects.all()
     listaCategorias = Categoria.objects.all()
-    
-    #print(listaProductos)
+
     context = {
         'productos':listaProductos,
         'categorias':listaCategorias
@@ -52,7 +48,7 @@ def Productos_Nombre(request):
 def Producto_Detalle(request,producto_id):
     """ vista para el detalle de producto"""
     
-    #objProducto = Producto.objects.get(pk=producto_id)
+
     objProducto = get_object_or_404(Producto,pk=producto_id)
     context = {
         'producto':objProducto
@@ -279,7 +275,7 @@ def registrarCompra(request):
         request.session['pedidoId'] = nuevoPedido.id
             
         paypal_dict = {
-            "business": "sb-mvtyu25103667@business.example.com",
+            "business": settings.PAYPAL_USER_EMAIL,
             "amount": montoTotal,
             "item_name": "PEDIDO NRO : " + nroPedido,
             "invoice": nroPedido,
