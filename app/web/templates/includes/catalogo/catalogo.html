@@ -1,3 +1,4 @@
+
 <div class="row prod-items prod-items-2">
     {% for producto in productos %}
     <article class="cf-sm-6 cf-md-6 cf-lg-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 sectgl-item">
@@ -13,7 +14,7 @@
                 <div class="prod-i-actions">
                     <div class="prod-i-actions-in">
                         <p class="prod-i-cart">
-                            <a href="{% url 'web:agregarCarrito' producto.id %}" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Añadir al carrito</span></a>
+                            <a href="{% url 'web:agregarCarrito' producto.id %}" class="hover-label prod-addbtn add_cart"><i class="icon ion-android-cart"></i><span>Añadir al carrito</span></a>
                         </p>
                     </div>
                 </div>
@@ -29,3 +30,39 @@
     </article>
     {% endfor %}
 </div>
+{% block script %}
+<script type="application/javascript">
+    $(document).ready(function() {
+        $('.add_cart').click(function(event) {
+            event.preventDefault(); 
+    
+            // Realizar una solicitud AJAX al servidor
+            $.ajax({
+                type: 'GET', // Puedes usar POST si es necesario
+                url: $(this).attr('href'), // Obtener la URL del enlace
+                success: function(response) {
+                    // La solicitud se completó con éxito
+                    Swal.fire({
+                        title: 'Éxito',
+                        text: 'Producto agregado al carrito',
+                        icon: 'success'
+                    });
+    
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 2200); 
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un problema al agregar el producto al carrito',
+                        icon: 'error'
+                    });
+                }
+            });
+        });
+    });
+    
+</script>
+{% endblock script %}
