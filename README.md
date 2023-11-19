@@ -3,8 +3,8 @@
 
 # Tecnologias
 * Django
-* PostgreSQL
-* TailwindCSS / Bootstrap / Less
+* MySQL
+* TailwindCSS - Less
 * Git / Github
 
 # Librerias
@@ -14,3 +14,9 @@
 # Info
  
 - Proyecto OpenSource con la proposito de mejorar en el backend y en un futuro implementar algun framework de frontend , seguramente sea Vue
+
+# Funcionalidades
+- Pasarela de Pago
+- Carrito de compras
+- Alertas
+- Inicio de sesion y registro 
